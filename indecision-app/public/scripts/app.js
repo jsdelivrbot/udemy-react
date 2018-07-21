@@ -80,17 +80,53 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var IndecisionApp = function (_React$Component) {
   _inherits(IndecisionApp, _React$Component);
 
-  function IndecisionApp() {
+  function IndecisionApp(props) {
     _classCallCheck(this, IndecisionApp);
 
-    return _possibleConstructorReturn(this, (IndecisionApp.__proto__ || Object.getPrototypeOf(IndecisionApp)).apply(this, arguments));
+    var _this = _possibleConstructorReturn(this, (IndecisionApp.__proto__ || Object.getPrototypeOf(IndecisionApp)).call(this, props));
+
+    _this.state = {
+      options: ['Start Option']
+    };
+    return _this;
   }
 
   _createClass(IndecisionApp, [{
+    key: 'handleDeleteOptions',
+    value: function handleDeleteOptions() {
+      this.setState(function (prev) {
+        return { options: [] };
+      });
+    }
+  }, {
+    key: 'handlePick',
+    value: function handlePick() {
+      var option = Math.floor(Math.random() * this.state.options.length);
+
+      console.log(this.state.options[option]);
+    }
+  }, {
+    key: 'handleAddOption',
+    value: function handleAddOption(e) {
+      e.preventDefault();
+      var optionRef = e.target.elements.option,
+          optionValue = optionRef.value.trim();
+
+      if (!optionValue) return;
+
+      if (this.state.options.includes(optionValue)) {
+        console.error('This option already exists');
+        return;
+      }
+
+      this.setState(function (prev) {
+        return { options: prev.options.concat(optionValue) };
+      });
+      optionRef.value = '';
+    }
+  }, {
     key: 'render',
     value: function render() {
-      var options = ['One'];
-
       return React.createElement(
         'div',
         null,
@@ -98,9 +134,17 @@ var IndecisionApp = function (_React$Component) {
           title: 'Indecision App',
           subtitle: 'asdsadas'
         }),
-        React.createElement(Action, null),
-        React.createElement(Options, { options: options }),
-        React.createElement(AddOption, null)
+        React.createElement(Action, {
+          hasOptions: !!this.state.options.length,
+          handlePick: this.handlePick.bind(this)
+        }),
+        React.createElement(Options, {
+          options: this.state.options,
+          handleDeleteOptions: this.handleDeleteOptions.bind(this)
+        }),
+        React.createElement(AddOption, {
+          handleAddOption: this.handleAddOption.bind(this)
+        })
       );
     }
   }]);
@@ -157,7 +201,10 @@ var Action = function (_React$Component3) {
         null,
         React.createElement(
           'button',
-          null,
+          {
+            onClick: this.props.handlePick,
+            disabled: !this.props.hasOptions
+          },
           'What should I Do'
         )
       );
@@ -180,14 +227,22 @@ var Options = function (_React$Component4) {
     key: 'render',
     value: function render() {
       return React.createElement(
-        'ul',
+        'div',
         null,
-        this.props.options.map(function (option, key) {
-          return React.createElement(Option, {
-            text: option,
-            key: key
-          });
-        })
+        React.createElement(
+          'button',
+          {
+            onClick: this.props.handleDeleteOptions
+          },
+          'Remove All'
+        ),
+        React.createElement(
+          'ul',
+          null,
+          this.props.options.map(function (option, key) {
+            return React.createElement(Option, { text: option, key: key });
+          })
+        )
       );
     }
   }]);
@@ -233,7 +288,16 @@ var AddOption = function (_React$Component6) {
       return React.createElement(
         'div',
         null,
-        'Add'
+        React.createElement(
+          'form',
+          { onSubmit: this.props.handleAddOption },
+          React.createElement('input', { type: 'text', name: 'option', placeholder: 'Type your option here!' }),
+          React.createElement(
+            'button',
+            null,
+            'Add Option'
+          )
+        )
       );
     }
   }]);
