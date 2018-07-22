@@ -72,7 +72,7 @@ class IndecisionApp extends React.Component {
     super(props)
 
     this.state = {
-      options: ['Start Option']
+      options: []
     }
   }
 
@@ -127,73 +127,47 @@ class IndecisionApp extends React.Component {
   }
 }
 
-class Header extends React.Component {
+const Header = props =>
+  <div>
+    <h1 className="title">{props.title}</h1>
+    <h2 className="subtitle">{props.subtitle}</h2>
+  </div>
 
-  render() {
-    return (
-      <div>
-        <h1 className="title">{this.props.title}</h1>
-        <h2 className="subtitle">{this.props.subtitle}</h2>
-      </div>
-    )
-  }
-}
-
-class Action extends React.Component {
-
-  render() {
+const Action = props => {
     return (
       <div>
         <button
-          onClick={this.props.handlePick}
-          disabled={!this.props.hasOptions}
+          onClick={props.handlePick}
+          disabled={!props.hasOptions}
         >
           What should I Do
         </button>
       </div>
     )
-  }
 }
 
-class Options extends React.Component {
-  render() {
-    return (
-      <div>
-        <button
-          onClick={this.props.handleDeleteOptions}
-        >
-          Remove All
-        </button>
-        <ul>
-          { this.props.options.map((option,key) => <Option text={option} key={key} />) }
-        </ul>
-      </div>
-    )
-  }
-}
+const Options = ({handleDeleteOptions, options}) =>
+  <div>
+    <button onClick={handleDeleteOptions}>Remove All</button>
+    <ul>
+      { options.map(option => <Option key={option} text={option} />) }
+    </ul>
+  </div>
 
-class Option extends React.Component {
-  render() {
-    return (
-      <li>
-        {this.props.text}
-      </li>
-    )
-  }
-}
+const Option = ({text}) =>
+  <li>
+    {text}
+  </li>
 
-class AddOption extends React.Component {
-  render() {
-    return (
-      <div>
-        <form onSubmit={this.props.handleAddOption}>
-          <input type="text" name="option" placeholder="Type your option here!"/>
-          <button>Add Option</button>
-        </form>
-      </div>
-    )
-  }
-}
+const AddOption = props =>
+  <div>
+    <form onSubmit={props.handleAddOption}>
+      <input type="text" name="option" placeholder="Type your option here!"/>
+      <button>Add Option</button>
+    </form>
+  </div>
 
+// const Test = (props) => <p className='test'>{ props.test }</p>
+// ReactDOM.render(<Test test='aaaa'/>, document.getElementById('app'))
 
-ReactDOM.render(<IndecisionApp />, document.getElementById('app'))
+ReactDOM.render(<IndecisionApp />, document.getElementById('app'));
