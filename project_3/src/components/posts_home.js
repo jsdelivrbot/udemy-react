@@ -1,4 +1,7 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { fetchPosts } from '../actions'
 
 class PostsHome extends Component {
   render () {
@@ -8,6 +11,14 @@ class PostsHome extends Component {
       </div>
     )
   }
+
+  componentDidMount() {
+    this.props.fetchPosts()
+  }
 }
 
-export default PostsHome
+// const mapDispacthToProps = dispacth => {
+//   return bindActionCreators({ fetchPosts }, dispacth)
+// }
+// export default connect(null, mapDispacthToProps)(PostsHome)
+export default connect(null, { fetchPosts })(PostsHome)
