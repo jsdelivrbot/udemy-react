@@ -8,7 +8,6 @@ const Header = () => (
     </h1>
     <NavLink activeClassName="is-active" exact to="/">Dashboard</NavLink>
     <NavLink activeClassName="is-active" to="/create">Create</NavLink>
-    <NavLink activeClassName="is-active" to="/edit">Edit</NavLink>
     <NavLink activeClassName="is-active" to="/help">Help</NavLink>
   </header>
 )
