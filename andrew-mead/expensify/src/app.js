@@ -6,6 +6,7 @@ import './styles/styles.scss';
 
 import AppRouter from './routers/AppRouter'
 
+import store from './store'
 
 const ExpenseDashboardPage = () => (
   <div>
