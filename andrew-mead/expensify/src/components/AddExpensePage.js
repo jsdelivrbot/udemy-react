@@ -2,8 +2,8 @@ import React from 'react';
 
 const AddExpensePage = () => (
   <div>
-    From my Add component
+    This is from my add expense component
   </div>
-)
+);
 
-export default AddExpensePage
+export default AddExpensePage;

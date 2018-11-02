@@ -1,5 +1,8 @@
 {
   "devDependencies": {
     "uuid": "^3.3.2"
+  },
+  "dependencies": {
+    "react-redux": "^5.1.0"
   }
 }

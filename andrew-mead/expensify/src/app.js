@@ -1,57 +1,29 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
+import { Provider } from 'react-redux';
+import AppRouter from './routers/AppRouter';
+import configureStore from './store/configureStore';
+import { addExpense } from './actions/expenses';
+import { setTextFilter } from './actions/filters';
+import getVisibleExpenses from './selectors/expenses';
 import 'normalize.css/normalize.css';
 import './styles/styles.scss';
 
-import AppRouter from './routers/AppRouter'
+const store = configureStore();
 
-import store from './store'
+store.dispatch(addExpense({ description: 'Water bill', amount: 1000 }));
+store.dispatch(addExpense({ description: 'Gas bill', amount: 2000 }));
+// store.dispatch(setTextFilter('water'));
 
-const ExpenseDashboardPage = () => (
-  <div>
-    From my dashboard component
-  </div>
+const state = store.getState();
+const visibleExpenses = getVisibleExpenses(state.expenses, state.filters);
+console.log(visibleExpenses);
+
+
+
+const app = (
+  <Provider store={store}>
+    <AppRouter />
+  </Provider>
 )
- 
-const AddExpensePage = () => (
-  <div>
-    From my Add component
-  </div>
-)
-
-const HelpPage = () => (
-  <div>
-    From my Help component
-  </div>
-)
- 
-const EditExpensePage = () => (
-  <div>
-    From my Edit component
-  </div>
-)
-
-const NotFound = () => (
-  <div>
-    NotFound
-    <Link to="/">Home Page</Link>
-  </div>
-)
-
-const Header = () => (
-  <header>
-    <h1>
-      Expensify
-    </h1>
-    <NavLink activeClassName="is-active" exact to="/">Dashboard</NavLink>
-    <NavLink activeClassName="is-active" to="/create">Create</NavLink>
-    <NavLink activeClassName="is-active" to="/edit">Edit</NavLink>
-    <NavLink activeClassName="is-active" to="/help">Help</NavLink>
-  </header>
-)
-
-
-
-ReactDOM.render(<AppRouter />, document.getElementById('app'));
-
+ReactDOM.render(app, document.getElementById('app'));
