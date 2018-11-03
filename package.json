@@ -3,6 +3,9 @@
     "uuid": "^3.3.2"
   },
   "dependencies": {
+    "moment": "^2.22.2",
+    "react-addons-shallow-compare": "^15.6.2",
+    "react-dates": "^18.2.0",
     "react-redux": "^5.1.0"
   }
 }

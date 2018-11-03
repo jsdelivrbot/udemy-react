@@ -2,7 +2,7 @@
 
 const filtersReducerDefaultState = {
   text: 'water',
-  sortBy: 'date',
+  sortBy: 'amount',
   startDate: undefined,
   endDate: undefined
 };
