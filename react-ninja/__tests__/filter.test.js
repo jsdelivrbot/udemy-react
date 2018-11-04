@@ -10,5 +10,15 @@ describe('filter´s tests', () => {
     expect(filter([10,20,30], item => item)).to.be.deep.equal([10,20,30])
   })
 
-  test('filter([0])')
+  test('filter([0,10,20,30], item => item should retur [10,20,30])', () => {
+    expect(filter([0,10,20,30], item => item)).to.be.deep.equal([10,20,30])  
+  })
+
+  test('filter([10,20,30], item => item < 15) should return [10]', () => {
+    expect(filter([10,20,30], item => item < 15)).to.be.deep.equal([10])
+  })
+
+  test('filter([10,20,30], (item, i) => i <= 1) should return [10,20]', () => {
+    expect(filter([10,20,30], (item, i) => i <= 1)).to.be.deep.equal([10,20])
+  })
 })
