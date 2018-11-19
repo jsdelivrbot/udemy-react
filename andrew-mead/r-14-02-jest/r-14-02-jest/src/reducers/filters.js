@@ -1,9 +1,10 @@
+import moment from 'moment';
+
 // Filters Reducer
-import moment from 'moment'
 
 const filtersReducerDefaultState = {
-  text: 'water',
-  sortBy: 'amount',
+  text: '',
+  sortBy: 'date',
   startDate: moment().startOf('month'),
   endDate: moment().endOf('month')
 };
